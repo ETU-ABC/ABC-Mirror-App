@@ -7,23 +7,42 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, Image, View} from 'react-native';
+import { AppRegistry, TextInput } from 'react-native';
+
+
 
 const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+  ios: 'Maalesef uygulamamamız Apple Store\'da bulunmamaktadır.',
   android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+    'Uygulamamız yakın zamanda full sürümüyle Google Play\' de yerini alacaktır.',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
+  constructor(probs){
+    super(probs);
+    this.state = {text : ''};
+  }
+  
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Image
+          style={styles.logo}
+          source={require('./logo.jpg')}
+        />
+        <Text style={styles.welcome}>ABC_Mirror'a Hoşgeldiniz!</Text>
+        <Text style={styles.schoolNoInstructions}>Başlamak için,
+        aşağıda bulunan bölmeye okul numaranızı giriniz:</Text>
+        <TextInput
+        keyboardType= 'numeric'
+        maxLength = {9}
+        style={styles.schoolNo}
+        onChangeText={(text) => this.setState({text})}
+        value={this.state.text}
+        />
+        <Text style={styles.info}>{instructions}</Text>
       </View>
     );
   }
@@ -34,16 +53,37 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
+    padding : 10,
+  },
+  logo:{
+    width : 300,
+    height : 300,
+    marginBottom : 15,
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
+  schoolNoInstructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  schoolNo: {
+    textAlign: 'center',
+    width : '80%',
+    color: '#333223',
+    backgroundColor : '#e1e1ea',
+    margin: 15,
+  },
+  info: {
+    borderWidth : 1,
+    borderRadius : 0.4,
+    borderColor: '#e1e1ea',
+    textAlign: 'center',
+    color: '#333333',
+    marginTop: 15,
   },
 });
