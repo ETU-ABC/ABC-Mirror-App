@@ -35,8 +35,9 @@ export default class App extends Component {
       kind: '',
       data: []
     };
+    this.host = 'http://10.0.2.15:8080';
     this.url = 'http://10.5.42.112:8080/edit?module=module_5_ABC-EtuCourseTimetable';
-    this.json_url = 'http://10.5.42.112:8080/installed_modules';
+    this.json_url = 'http://10.5.42.112:8080/all_modules';
   }
   
   postOgrenciNo = () => {
@@ -52,19 +53,11 @@ export default class App extends Component {
   }
 
   getJSON = () => {
-    axios.get(this.json_url, {
-    })
-    .then(function (response) {
-      const myObjStr = JSON.stringify(response);
-      console.log(myObjStr);
-      alert(myObjStr);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {
-      console.log("getJSON function is finished.");
-    });  
+    return fetch(this.json_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+      });;  
   
   }
 
@@ -73,10 +66,11 @@ export default class App extends Component {
     return fetch(this.json_url)
       .then(response => response.json())
       .then(responseJson => {
+        console.log(responseJson);
         this.setState(
           {
             isLoading: false,
-            dataSource: responseJson.data
+            dataSource: responseJson
           },
           function() {
 
@@ -111,15 +105,16 @@ export default class App extends Component {
         <Button
           style ={styles.module_button} 
           onPress={this.getJSON2}
-          title="Modulleri Al"
+          title="Modülleri Göster"
           color = "#b8c7e0"
           accessibilityLabel="Yuklenmis modulleri al"
         />
         <FlatList
+          style={styles.flatlist}
           data={this.state.dataSource}
           renderItem={({ item }) => (
             <Text>
-              {item.name}, {item.symbol}
+              {item.name}
             </Text>
           )}
           keyExtractor={(item, index) => index}
@@ -171,6 +166,11 @@ const styles = StyleSheet.create({
     width : '80%',
     color: '#841584',
     margin: 15,
+  },
+  flatlist: {
+    paddingHorizontal : 70,
+    width = '%120',
+    margin : 15,
   },
   info: {
     borderWidth : 1,
