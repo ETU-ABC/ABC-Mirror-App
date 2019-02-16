@@ -1,7 +1,24 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, Button, Image, View} from 'react-native';
+import {Platform, StyleSheet, Text, Button, Image, View, FlatList} from 'react-native';
 import { AppRegistry, TextInput } from 'react-native';
 import axios from 'axios';
+import { Navigation } from 'react-native-navigation';
+
+Navigation.registerComponent(`navigation.playground.App`, () => App);
+
+Navigation.events().registerAppLaunchedListener(() => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [{
+          component: {
+            name: "navigation.playground.App"
+          }
+        }]
+      }
+    }
+  });
+});
 
 const inputInstructions = 'Başlamak için, aşağıda bulunan bölmeye okul numaranızı giriniz:';
 const instructions = Platform.select({
@@ -19,6 +36,7 @@ export default class App extends Component {
       data: []
     };
     this.url = 'http://10.5.42.112:8080/edit?module=module_5_ABC-EtuCourseTimetable';
+    this.json_url = 'http://10.5.42.112:8080/installed_modules';
   }
   
   postOgrenciNo = () => {
@@ -33,6 +51,40 @@ export default class App extends Component {
     });
   }
 
+  getJSON = () => {
+    axios.get(this.json_url, {
+    })
+    .then(function (response) {
+      const myObjStr = JSON.stringify(response);
+      console.log(myObjStr);
+      alert(myObjStr);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .then(function () {
+      console.log("getJSON function is finished.");
+    });  
+  
+  }
+
+
+  getJSON2 = () => {
+    return fetch(this.json_url)
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState(
+          {
+            isLoading: false,
+            dataSource: responseJson.data
+          },
+          function() {
+
+          }
+        );
+      });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -40,7 +92,7 @@ export default class App extends Component {
           style={styles.logo}
           source={require('./logo.jpg')}
         />
-        <Text style={styles.welcome}>ABC_Mirror Hoşgeldiniz!</Text>
+        <Text style={styles.welcome}>ABC_Mirror'a Hoşgeldiniz!</Text>
         <Text style={styles.inputInstructions}>{inputInstructions}</Text>
         <TextInput
           keyboardType= 'numeric'
@@ -53,9 +105,25 @@ export default class App extends Component {
           style ={styles.button} 
           onPress={this.postOgrenciNo}
           title="Gönder"
+          color = "#e1e1ea"
           accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
         />
-        
+        <Button
+          style ={styles.module_button} 
+          onPress={this.getJSON2}
+          title="Modulleri Al"
+          color = "#b8c7e0"
+          accessibilityLabel="Yuklenmis modulleri al"
+        />
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={({ item }) => (
+            <Text>
+              {item.name}, {item.symbol}
+            </Text>
+          )}
+          keyExtractor={(item, index) => index}
+        />
         <Text style={styles.info}>{instructions}</Text>
       </View>
     );
@@ -71,8 +139,8 @@ const styles = StyleSheet.create({
     padding : 10,
   },
   logo:{
-    width : 300,
-    height : 300,
+    width : 200,
+    height : 200,
     marginBottom : 15,
   },
   welcome: {
@@ -96,15 +164,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width : '80%',
     color: '#e1e1ea',
-    backgroundColor : '#e1e1ea',
     margin: 5,
   },
   module_button: {
     textAlign: 'center',
     width : '80%',
-    color: '#cbcfd3',
-    backgroundColor : '#cbcfd3',
-    margin: 5,
+    color: '#841584',
+    margin: 15,
   },
   info: {
     borderWidth : 1,
