@@ -49,6 +49,7 @@ export default class HomeScreen extends React.Component {
             borderBottomWidth: 5,
           }}
         />
+
        <Button
           style = {styles.module_button} 
           title="Google Calendar"
@@ -72,6 +73,30 @@ export default class HomeScreen extends React.Component {
                this.props.navigation.navigate('Weather');
            }}
        />
+       <View
+          style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: 5,
+          }}  
+        />
+       <Button
+          title="Go to Alarm"
+          onPress={() => {
+            this.props.navigation.navigate('Alarm');
+          }}
+        />
+        <View
+          style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: 5,
+          }}  
+        />
+        <Button
+          title="Go to Mail"
+          onPress={() => {
+            this.props.navigation.navigate('Mail');
+          }}
+        />
        <Text style={styles.info}>{instructions}</Text>
       </View>
     );
