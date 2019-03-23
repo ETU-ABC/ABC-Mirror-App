@@ -6,6 +6,7 @@ import DummyScreen from './src/screens/DummyScreen';
 import SchoolNoScreen from './src/screens/SchoolNoScreen';
 import PhotoScreen from './src/screens/PhotoScreen';
 import CalendarScreen from './src/screens/CalendarScreen';
+import WeatherScreen from "./src/screens/WeatherScreen";
 
 const AppNavigator = createStackNavigator({
   Home: { 
@@ -22,6 +23,9 @@ const AppNavigator = createStackNavigator({
   },
   Calendar: {
     screen: CalendarScreen
+  },
+  Weather: {
+    screen: WeatherScreen
   }
 });
 
