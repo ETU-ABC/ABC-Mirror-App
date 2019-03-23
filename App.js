@@ -4,6 +4,8 @@ import {createStackNavigator, createAppContainer} from 'react-navigation';
 import HomeScreen from './src/screens/HomeScreen';
 import DummyScreen from './src/screens/DummyScreen';
 import SchoolNoScreen from './src/screens/SchoolNoScreen';
+import PhotoScreen from './src/screens/PhotoScreen';
+import CalendarScreen from './src/screens/CalendarScreen';
 
 const AppNavigator = createStackNavigator({
   Home: { 
@@ -15,6 +17,12 @@ const AppNavigator = createStackNavigator({
   SchoolNo: { 
     screen: SchoolNoScreen, 
   },
+  Photo: {
+    screen: PhotoScreen,
+  },
+  Calendar: {
+    screen: CalendarScreen
+  }
 });
 
 const App = createAppContainer(AppNavigator);

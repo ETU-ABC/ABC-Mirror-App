@@ -2,32 +2,28 @@ import React from 'react';
 import {Platform, StyleSheet, Text, Button, Image, View, FlatList, TextInput, AppRegistry} from 'react-native';
 import axios from 'axios';
 
-const inputInstructions = 'Başlamak için, aşağıda bulunan bölmeye okul numaranızı giriniz:';
-const instructions = Platform.select({
-  ios: 'Maalesef uygulamamamız Apple Store\'da bulunmamaktadır.',
-  android:
-    'Uygulamamız yakın zamanda full sürümüyle Google Play\' de yerini alacaktır.',
-});
-
 export default class SchoolNoScreen extends React.Component {
   static navigationOptions = {
     title: 'School No Configuration',
   };
   constructor(probs){
     super(probs);
-    this.state = {text : ''};
+    this.state = {text : '', module: ''};
     this.modules = {
       kind: '',
       data: []
     };
-    this.host = 'http://10.0.2.15:8080';
-    this.url = 'http://10.5.42.112:8080/edit?module=module_5_ABC-EtuCourseTimetable';
-    this.json_url = 'http://10.5.42.112:8080/all_modules';
+    this.host = 'http://localhost:8080';
+    this.url = this.host+'edit?module=module_5_ABC-EtuCourseTimetable';
+    this.json_url = this.host+'/all_modules';
+    this.show_url = this.host+'/hide?action=SHOW&module=';
+    this.hide_url = this.host+'/hide?action=HIDE&module=';
   }
 
 
   postOgrenciNo = () => {
-    axios.post(this.url, {
+    this.tmp_url = this.url;
+    axios.post(this.tmp_url, {
       "ogrenciNo": this.state.text
     })
     .then(function (response) {
@@ -39,7 +35,8 @@ export default class SchoolNoScreen extends React.Component {
   }
 
   getJSON = () => {
-    return fetch(this.json_url)
+    this.tmp_url = this.url;
+    return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
         response.json()
@@ -49,7 +46,8 @@ export default class SchoolNoScreen extends React.Component {
 
 
   getJSON2 = () => {
-    return fetch(this.json_url)
+    this.tmp_url = this.url;
+    return fetch(this.tmp_url)
       .then(response => response.json())
       .then(responseJson => {
         console.log(responseJson);
@@ -65,14 +63,46 @@ export default class SchoolNoScreen extends React.Component {
       });
   }
 
+  show_module = (item) => {
+    this.tmp_url = this.show_url+item.name
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+      });;
+  }
 
+  hide_module = (item) => {
+    this.tmp_url = this.hide_url+item.name
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });;
+  }
+
+  show_module_by_input = () => {
+    this.tmp_url = this.show_url+this.state.module
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });;
+  }
+
+  hide_module_by_input = () => {
+    this.tmp_url = this.hide_url+this.state.module
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });;
+  }
 
   render() {
     return (
       <View style={styles.container}>
-
-        <Text style={styles.welcome}>ABC_Mirror'a Hoşgeldiniz!</Text>
-        <Text style={styles.inputInstructions}>{inputInstructions}</Text>
+        <Text style={styles.welcome}>Merhabalar Öğrenci!</Text>
         <TextInput
           keyboardType= 'numeric'
           maxLength = {9}
@@ -98,13 +128,47 @@ export default class SchoolNoScreen extends React.Component {
           style={styles.flatlist}
           data={this.state.dataSource}
           renderItem={({ item }) => (
-            <Text>
-              {item.name}
-            </Text>
+            <View>
+              <Text>
+                {item.name}
+              </Text>
+              <Button
+                style ={styles.show_module} 
+                onPress={this.show_module({item})}
+                title="Göster"
+                color = "#b8c7e0"
+                accessibilityLabel="Göster"
+              />
+              <Button
+                style ={styles.delete_module({item})} 
+                onPress={this.hide_module}
+                title="Gizle"
+                color = "#c8d7f0"
+                accessibilityLabel="Gizle"
+              /> 
+            </View>
           )}
           keyExtractor={(item, index) => index}
         />
-        <Text style={styles.info}>{instructions}</Text>
+        <TextInput
+        style={styles.schoolNo}
+        onChangeText={(text) => this.setState({module})}
+        value={this.state.text}
+        />
+        <Button
+            style ={styles.button} 
+            onPress={this.show_module_by_input}
+            title="Modülü Aynada Göster"
+            color = "#bfffc4"
+            accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
+        />
+        <Button
+            style ={styles.button} 
+            onPress={this.hide_module_by_input}
+            title="Modülü Aynada Gösterme"
+            color = "#ffa8a8"
+            accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
+        />
       </View>
     );
   }
@@ -127,11 +191,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  inputInstructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
   schoolNo: {
     textAlign: 'center',

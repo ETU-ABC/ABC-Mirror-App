@@ -8,8 +8,13 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "lodash": "^4.17.11",
+    "moment-timezone": "^0.5.23",
+    "native-base": "^2.12.1",
     "react": "16.6.3",
     "react-native": "0.58.6",
+    "react-native-calendars": "^1.22.0",
+    "react-native-datepicker-modal": "^1.1.0",
     "react-native-gesture-handler": "^1.1.0",
     "react-navigation": "^3.3.2"
   },
