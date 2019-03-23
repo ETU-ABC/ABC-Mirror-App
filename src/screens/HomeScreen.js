@@ -23,6 +23,19 @@ export default class HomeScreen extends React.Component {
             this.props.navigation.navigate('SchoolNo');
           }}
         />
+        <Button
+          title="Go to Alarm"
+          onPress={() => {
+            this.props.navigation.navigate('Alarm');
+          }}
+        />
+
+        <Button
+          title="Go to Mail"
+          onPress={() => {
+            this.props.navigation.navigate('Mail');
+          }}
+        />
       </View>
     );
   }
