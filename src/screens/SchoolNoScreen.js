@@ -98,7 +98,7 @@ export default class SchoolNoScreen extends React.Component {
     });
   }
 
-  hide_all = () => {
+  hide_all_func = () => {
     this.tmp_url = this.hide_all
     return fetch(this.tmp_url)
       .then(response => {
@@ -107,7 +107,7 @@ export default class SchoolNoScreen extends React.Component {
     });
   }
 
-  show_all = () => {
+  show_all_func = () => {
     this.tmp_url = this.show_all
     return fetch(this.tmp_url)
       .then(response => {
@@ -194,7 +194,7 @@ export default class SchoolNoScreen extends React.Component {
         />
         <Button
             style ={styles.button} 
-            onPress={this.show_all}
+            onPress={this.show_all_func}
             title="Bütün Modülleri Göster"
             color = "#5eff6a"
             accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
@@ -207,7 +207,7 @@ export default class SchoolNoScreen extends React.Component {
         />
         <Button
             style ={styles.button} 
-            onPress={this.hide_all}
+            onPress={this.hide_all_func}
             title="Hiçbir Modülü Gösterme"
             color = "#f74a4a"
             accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
