@@ -1,17 +1,10 @@
 import React from 'react';
-import {Platform, StyleSheet, Text, Button, Image, View, FlatList, TextInput, AppRegistry} from 'react-native';
+import {StyleSheet, Text, Button, Image, View, FlatList, TextInput, ScrollView} from 'react-native';
 import axios from 'axios';
-
-const inputInstructions = 'Başlamak için, aşağıda bulunan bölmeye okul numaranızı giriniz:';
-const instructions = Platform.select({
-  ios: 'Maalesef uygulamamamız Apple Store\'da bulunmamaktadır.',
-  android:
-    'Uygulamamız yakın zamanda full sürümüyle Google Play\' de yerini alacaktır.',
-});
 
 export default class SchoolNoScreen extends React.Component {
   static navigationOptions = {
-    title: 'School No Configuration',
+    title: 'Okul Numarası ve Modüller',
   };
   constructor(probs){
     super(probs);
@@ -20,15 +13,22 @@ export default class SchoolNoScreen extends React.Component {
       kind: '',
       data: []
     };
-    this.host = 'http://10.0.2.15:8080';
-    this.url = 'http://10.5.42.112:8080/edit?module=module_5_ABC-EtuCourseTimetable';
-    this.json_url = 'http://10.5.42.112:8080/all_modules';
+    this.host = 'http://10.5.43.212:8080'; 
+    this.course_timetable = this.host+'/edit?module=ABC-EtuCourseTimetable';
+    this.exam_timetable = this.host+'/edit?module=ABC-EtuExamTimeTable';
+    this.json_url = this.host+'/all_modules';
+    this.show_url = this.host+'/hide?action=SHOW&module=';
+    this.hide_url = this.host+'/hide?action=HIDE&module=';
+    this.show_all = this.host+'';
+    this.hide_all = this.host+'';
   }
 
-
   postOgrenciNo = () => {
-    axios.post(this.url, {
-      "ogrenciNo": this.state.text
+    this.tmp_url = this.course_timetable;
+    axios.post(this.tmp_url, {
+      "content": {
+        "ogrenciNo": this.state.text
+      }
     })
     .then(function (response) {
       console.log(response);
@@ -36,10 +36,24 @@ export default class SchoolNoScreen extends React.Component {
     .catch(function (error) {
       console.log(error);
     });
+
+    this.tmp_url = this.exam_timetable;
+    axios.post(this.tmp_url, {
+      "content": {
+        "ogrenciNo": this.state.text
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });  
   }
 
   getJSON = () => {
-    return fetch(this.json_url)
+    this.tmp_url = this.json_url;
+    return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
         response.json()
@@ -49,7 +63,8 @@ export default class SchoolNoScreen extends React.Component {
 
 
   getJSON2 = () => {
-    return fetch(this.json_url)
+    this.tmp_url = this.json_url;
+    return fetch(this.tmp_url)
       .then(response => response.json())
       .then(responseJson => {
         console.log(responseJson);
@@ -65,14 +80,65 @@ export default class SchoolNoScreen extends React.Component {
       });
   }
 
+  show_module(item) {
+    this.tmp_url = this.show_url+item.longname
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+      });;
+  } 
 
+  hide_module(item) {
+    this.tmp_url = this.hide_url+item.longname
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });
+  }
+
+  hide_all = () => {
+    this.tmp_url = this.hide_all
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });
+  }
+
+  show_all = () => {
+    this.tmp_url = this.show_all
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });
+  }
+
+  show_module_by_input = () => {
+    this.tmp_url = this.show_url+this.state.module
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });;
+  }
+
+  hide_module_by_input = () => {
+    this.tmp_url = this.hide_url+this.state.module
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });;
+  }
 
   render() {
     return (
       <View style={styles.container}>
-
-        <Text style={styles.welcome}>ABC_Mirror'a Hoşgeldiniz!</Text>
-        <Text style={styles.inputInstructions}>{inputInstructions}</Text>
+        <Text style={styles.welcome}>Merhabalar Öğrenci!</Text>
+        <Text style={styles.start}>Başlamak için okul numaranı buradan gönderebilirsin.</Text>
         <TextInput
           keyboardType= 'numeric'
           maxLength = {9}
@@ -92,19 +158,60 @@ export default class SchoolNoScreen extends React.Component {
           onPress={this.getJSON2}
           title="Modülleri Göster"
           color = "#b8c7e0"
-          accessibilityLabel="Yuklenmis modulleri al"
+          accessibilityLabel="Yüklenmis modulleri al"
         />
         <FlatList
           style={styles.flatlist}
           data={this.state.dataSource}
           renderItem={({ item }) => (
-            <Text>
-              {item.name}
-            </Text>
+            <View style={{alignItems:'center'}}>
+              <Text>
+                {item.name}
+              </Text>
+              <View style={{flexDirection:"row"}}>
+                <Button
+                  style ={styles.show_module} 
+                  onPress={() => {
+                    this.show_module(item)
+                  }}
+                  title="Göster"
+                  color = "#b8c7e0"
+                  accessibilityLabel="Göster"
+                />
+                <Button
+                  style ={styles.show_module} 
+                  onPress={() => {
+                    this.hide_module(item)
+                  }}
+                  title="Gizle"
+                  color = "#c8d7f0"
+                  accessibilityLabel="Gizle"
+                />
+              </View>
+            </View>
           )}
           keyExtractor={(item, index) => index}
         />
-        <Text style={styles.info}>{instructions}</Text>
+        <Button
+            style ={styles.button} 
+            onPress={this.show_all}
+            title="Bütün Modülleri Göster"
+            color = "#5eff6a"
+            accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
+        />
+        <View
+          style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: 5,
+          }}  
+        />
+        <Button
+            style ={styles.button} 
+            onPress={this.hide_all}
+            title="Hiçbir Modülü Gösterme"
+            color = "#f74a4a"
+            accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
+        />
       </View>
     );
   }
@@ -128,10 +235,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  inputInstructions: {
+  start: {
     textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    margin: 10,
   },
   schoolNo: {
     textAlign: 'center',
@@ -153,7 +259,7 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   flatlist: {
-    paddingHorizontal : 70,
+    paddingHorizontal : 20,
     margin : 15,
   },
   info: {

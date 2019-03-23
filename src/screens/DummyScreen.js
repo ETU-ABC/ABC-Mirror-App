@@ -4,8 +4,15 @@ import { Button, View, Text } from 'react-native';
 
 export default class DummyScreen extends React.Component {
   static navigationOptions = {
-    title: 'Dummy Page',
+    title: 'Dummy Sayfa',
   };
+  constructor(probs){
+    super(probs);
+    this.state = {text : ''};
+    this.host = 'http://10.5.43.212:8080';
+    this.url = 'http://10.5.43.212:8080/edit?module=module_5_ABC-EtuCourseTimetable';
+    this.json_url = 'http://10.5.43.212:8080/all_modules';
+  }
   render() {
     return (
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
