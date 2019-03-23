@@ -79,15 +79,25 @@ export default class SchoolNoScreen extends React.Component {
       .then(response => {
         console.log(response);
         response.json()
-    });;
+    });
   }
 
   hide_all = () => {
-    
+    this.tmp_url = this.hide_all
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });
   }
 
   show_all = () => {
-
+    this.tmp_url = this.show_all
+    return fetch(this.tmp_url)
+      .then(response => {
+        console.log(response);
+        response.json()
+    });
   }
 
   show_module_by_input = () => {
@@ -163,25 +173,17 @@ export default class SchoolNoScreen extends React.Component {
           )}
           keyExtractor={(item, index) => index}
         />
-        <Text style={styles.welcome}> 
-            Modül ismi:
-        </Text>
-        <TextInput
-          style={styles.schoolNo}
-          onChangeText={(module) => this.setState({module})}
-          value={this.state.module}
-        />
         <Button
             style ={styles.button} 
             onPress={this.show_module_by_input}
-            title="Modülü Aynada Göster"
+            title="Bütün Modülleri Göster"
             color = "#bfffc4"
             accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
         />
         <Button
             style ={styles.button} 
             onPress={this.hide_module_by_input}
-            title="Modülü Aynada Gösterme"
+            title="Hiçbir Modülü Gösterme"
             color = "#ffa8a8"
             accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
         />
