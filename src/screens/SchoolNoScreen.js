@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, Text, Button, Image, View, FlatList, TextInput, AppRegistry} from 'react-native';
+import {StyleSheet, Text, Button, Image, View, FlatList, TextInput, ScrollView} from 'react-native';
 import axios from 'axios';
 
 export default class SchoolNoScreen extends React.Component {
@@ -13,13 +13,14 @@ export default class SchoolNoScreen extends React.Component {
       kind: '',
       data: []
     };
-    this.host = 'http://localhost:8080';
+    this.host = 'http://10.5.43.212:8080';
     this.url = this.host+'edit?module=module_5_ABC-EtuCourseTimetable';
     this.json_url = this.host+'/all_modules';
     this.show_url = this.host+'/hide?action=SHOW&module=';
     this.hide_url = this.host+'/hide?action=HIDE&module=';
+    this.show_all = this.host+'';
+    this.hide_all = this.host+'';
   }
-
 
   postOgrenciNo = () => {
     this.tmp_url = this.url;
@@ -35,7 +36,7 @@ export default class SchoolNoScreen extends React.Component {
   }
 
   getJSON = () => {
-    this.tmp_url = this.url;
+    this.tmp_url = this.json_url;
     return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
@@ -46,7 +47,7 @@ export default class SchoolNoScreen extends React.Component {
 
 
   getJSON2 = () => {
-    this.tmp_url = this.url;
+    this.tmp_url = this.json_url;
     return fetch(this.tmp_url)
       .then(response => response.json())
       .then(responseJson => {
@@ -63,22 +64,30 @@ export default class SchoolNoScreen extends React.Component {
       });
   }
 
-  show_module = (item) => {
-    this.tmp_url = this.show_url+item.name
+  show_module(item) {
+    this.tmp_url = this.show_url+item.longname
     return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
         response.json()
       });;
-  }
+  } 
 
-  hide_module = (item) => {
-    this.tmp_url = this.hide_url+item.name
+  hide_module(item) {
+    this.tmp_url = this.hide_url+item.longname
     return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
         response.json()
     });;
+  }
+
+  hide_all = () => {
+    
+  }
+
+  show_all = () => {
+
   }
 
   show_module_by_input = () => {
@@ -134,26 +143,33 @@ export default class SchoolNoScreen extends React.Component {
               </Text>
               <Button
                 style ={styles.show_module} 
-                onPress={this.show_module({item})}
+                onPress={() => {
+                  this.show_module(item)
+                }}
                 title="Göster"
                 color = "#b8c7e0"
                 accessibilityLabel="Göster"
               />
               <Button
-                style ={styles.delete_module({item})} 
-                onPress={this.hide_module}
+                style ={styles.show_module} 
+                onPress={() => {
+                  this.hide_module(item)
+                }}
                 title="Gizle"
                 color = "#c8d7f0"
                 accessibilityLabel="Gizle"
-              /> 
+              />
             </View>
           )}
           keyExtractor={(item, index) => index}
         />
+        <Text style={styles.welcome}> 
+            Modül ismi:
+        </Text>
         <TextInput
-        style={styles.schoolNo}
-        onChangeText={(text) => this.setState({module})}
-        value={this.state.text}
+          style={styles.schoolNo}
+          onChangeText={(module) => this.setState({module})}
+          value={this.state.module}
         />
         <Button
             style ={styles.button} 

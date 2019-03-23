@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Button, TextInput, Text, View, ScrollView} from 'react-native';
-
+import axios from 'axios';
 
 export default class CalendarScreen extends React.Component {
   static navigationOptions = {
@@ -9,7 +9,7 @@ export default class CalendarScreen extends React.Component {
   constructor(probs){
     super(probs);
     this.state = {text : ''};
-    this.host = 'http://10.0.2.15:8080';
+    this.host = 'http://10.5.43.212:8080';
     this.url =  this.host+'/calendar';
   }
 
@@ -47,23 +47,25 @@ export default class CalendarScreen extends React.Component {
           accessibilityLabel="Google Calendar'ı güncellemek için tıklayın."
         />
         <Text style={styles.info}>
-          1) Öncelikle calendar.google.com adresine gidip kendinize bir hesap açınız. 
-        </Text>
-        <Text style={styles.info}>
-          2) Ardından sağ yukarıda bulunan ayarlar ikonuna tıklayarak ayarlara giriniz.
-        </Text>
-        <Text style={styles.info}>
-          3) Ayarlar içinde sol tarafta bulunan 'takvimlerimin ayarları' seçeneğininden kendi isminize tıklayın ve çıkan ekranda en aşağı kaydırın.
-        </Text>
-        <Text style={styles.info}>  
-          4) En altta koyu renk arka planla birlikte bulunan iCal biçiminde gizli adres kısmındaki adresi kopyalayıp yukarıdaki bölmeye kopyalayın ve Gönder'e tıklayın.  
+{`
+Ben iCal adresimi bilmiyorum diyorsanız,
+Maalesef sadece bilgisayardan alınan iCal adresini şöyle ulaşabilirsiniz:
+
+1) Öncelikle calendar.google.com adresine gidip kendinize bir hesap açınız. (Ya da google hesabınızla giriş yapınız.)
+
+2) Ardından sağ yukarıda bulunan ayarlar ikonuna tıklayarak ayarlara giriniz.
+
+3) Ayarlar içinde sol tarafta bulunan 'takvimlerimin ayarları' seçeneğininden kendi isminize tıklayın ve çıkan ekranda en aşağı kaydırın.
+
+4) En altta koyu renk arka planla birlikte bulunan iCal biçiminde gizli adres kısmındaki adresi kopyalayıp yukarıdaki bölmeye kopyalayın ve Gönder'e tıklayın.  
+
+`}
         </Text>
         </ScrollView>
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -91,10 +93,11 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   info: {
+    padding:15,
     borderWidth : 1,
     borderRadius : 0.4,
     borderColor: '#e1e1ea',
-    textAlign: 'center',
+    textAlign: 'left',
     color: '#333333',
     marginTop: 15,
   },
