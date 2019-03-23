@@ -13,7 +13,7 @@ export default class SchoolNoScreen extends React.Component {
       kind: '',
       data: []
     };
-    this.host = 'http://10.5.43.212:8080';
+    this.host = 'http://10.5.43.212:8080'; 
     this.url = this.host+'edit?module=module_5_ABC-EtuCourseTimetable';
     this.json_url = this.host+'/all_modules';
     this.show_url = this.host+'/hide?action=SHOW&module=';
@@ -141,7 +141,7 @@ export default class SchoolNoScreen extends React.Component {
           onPress={this.getJSON2}
           title="Modülleri Göster"
           color = "#b8c7e0"
-          accessibilityLabel="Yuklenmis modulleri al"
+          accessibilityLabel="Yüklenmis modulleri al"
         />
         <FlatList
           style={styles.flatlist}
@@ -151,24 +151,26 @@ export default class SchoolNoScreen extends React.Component {
               <Text>
                 {item.name}
               </Text>
-              <Button
-                style ={styles.show_module} 
-                onPress={() => {
-                  this.show_module(item)
-                }}
-                title="Göster"
-                color = "#b8c7e0"
-                accessibilityLabel="Göster"
-              />
-              <Button
-                style ={styles.show_module} 
-                onPress={() => {
-                  this.hide_module(item)
-                }}
-                title="Gizle"
-                color = "#c8d7f0"
-                accessibilityLabel="Gizle"
-              />
+              <View style={{flexDirection:"row"}}>
+                <Button
+                  style ={styles.show_module} 
+                  onPress={() => {
+                    this.show_module(item)
+                  }}
+                  title="Göster"
+                  color = "#b8c7e0"
+                  accessibilityLabel="Göster"
+                />
+                <Button
+                  style ={styles.show_module} 
+                  onPress={() => {
+                    this.hide_module(item)
+                  }}
+                  title="Gizle"
+                  color = "#c8d7f0"
+                  accessibilityLabel="Gizle"
+                />
+              </View>
             </View>
           )}
           keyExtractor={(item, index) => index}

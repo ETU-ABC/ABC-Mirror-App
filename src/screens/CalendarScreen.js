@@ -10,13 +10,15 @@ export default class CalendarScreen extends React.Component {
     super(probs);
     this.state = {text : ''};
     this.host = 'http://10.5.43.212:8080';
-    this.url =  this.host+'/calendar';
+    this.url =  this.host+'/edit?module=calendar';
   }
 
   google_calendar = () => {
     this.tmp_url = this.url+this.state.text;
     axios.post(this.tmp_url, {
-      "url": this.state.text
+      "content": {
+        "url": this.state.text
+      }
     })
     .then(function (response) {
       console.log(response);
