@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default class PhotoScreen extends React.Component {
   static navigationOptions = {
-    title: 'Photo Page',
+    title: 'Fotoğraf Sayfası',
   };
   constructor(probs){
     super(probs);
@@ -19,7 +19,8 @@ export default class PhotoScreen extends React.Component {
   }
 
   takePic = () => {
-    axios.post(this.url, {
+    this.tmp_url = this.url
+    axios.post(this.tmp_url, {
       "name": this.state.text
     })
     .then(function (response) {

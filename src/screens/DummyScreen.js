@@ -4,7 +4,7 @@ import { Button, View, Text } from 'react-native';
 
 export default class DummyScreen extends React.Component {
   static navigationOptions = {
-    title: 'Dummy Page',
+    title: 'Dummy Sayfa',
   };
   constructor(probs){
     super(probs);

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default class CalendarScreen extends React.Component {
   static navigationOptions = {
-    title: 'Calendar Page',
+    title: 'Google Calendar',
   };
   constructor(probs){
     super(probs);
@@ -45,7 +45,7 @@ export default class CalendarScreen extends React.Component {
           style={styles.module_button}
           onPress={this.google_calendar}
           title="Gönder"
-          color = "#bfffc4"
+          color = "#f46146"
           accessibilityLabel="Google Calendar'ı güncellemek için tıklayın."
         />
         <Text style={styles.info}>

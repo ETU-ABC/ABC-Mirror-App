@@ -4,17 +4,18 @@ import axios from 'axios';
 
 export default class SchoolNoScreen extends React.Component {
   static navigationOptions = {
-    title: 'School No Configuration',
+    title: 'Okul Numarası ve Modüller',
   };
   constructor(probs){
     super(probs);
-    this.state = {text : '', module: ''};
+    this.state = {text : ''};
     this.modules = {
       kind: '',
       data: []
     };
     this.host = 'http://10.5.43.212:8080'; 
-    this.url = this.host+'edit?module=module_5_ABC-EtuCourseTimetable';
+    this.course_timetable = this.host+'/edit?module=ABC-EtuCourseTimetable';
+    this.exam_timetable = this.host+'/edit?module=ABC-EtuExamTimeTable';
     this.json_url = this.host+'/all_modules';
     this.show_url = this.host+'/hide?action=SHOW&module=';
     this.hide_url = this.host+'/hide?action=HIDE&module=';
@@ -23,9 +24,11 @@ export default class SchoolNoScreen extends React.Component {
   }
 
   postOgrenciNo = () => {
-    this.tmp_url = this.url;
+    this.tmp_url = this.course_timetable;
     axios.post(this.tmp_url, {
-      "ogrenciNo": this.state.text
+      "content": {
+        "ogrenciNo": this.state.text
+      }
     })
     .then(function (response) {
       console.log(response);
@@ -33,6 +36,19 @@ export default class SchoolNoScreen extends React.Component {
     .catch(function (error) {
       console.log(error);
     });
+
+    this.tmp_url = this.exam_timetable;
+    axios.post(this.tmp_url, {
+      "content": {
+        "ogrenciNo": this.state.text
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });  
   }
 
   getJSON = () => {
@@ -122,6 +138,7 @@ export default class SchoolNoScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Merhabalar Öğrenci!</Text>
+        <Text style={styles.start}>Başlamak için okul numaranı buradan gönderebilirsin.</Text>
         <TextInput
           keyboardType= 'numeric'
           maxLength = {9}
@@ -147,7 +164,7 @@ export default class SchoolNoScreen extends React.Component {
           style={styles.flatlist}
           data={this.state.dataSource}
           renderItem={({ item }) => (
-            <View>
+            <View style={{alignItems:'center'}}>
               <Text>
                 {item.name}
               </Text>
@@ -179,14 +196,20 @@ export default class SchoolNoScreen extends React.Component {
             style ={styles.button} 
             onPress={this.show_module_by_input}
             title="Bütün Modülleri Göster"
-            color = "#bfffc4"
+            color = "#5eff6a"
             accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
+        />
+        <View
+          style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: 5,
+          }}  
         />
         <Button
             style ={styles.button} 
             onPress={this.hide_module_by_input}
             title="Hiçbir Modülü Gösterme"
-            color = "#ffa8a8"
+            color = "#f74a4a"
             accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
         />
       </View>
@@ -212,6 +235,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  start: {
+    textAlign: 'center',
+    margin: 10,
+  },
   schoolNo: {
     textAlign: 'center',
     width : '80%',
@@ -232,7 +259,7 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   flatlist: {
-    paddingHorizontal : 70,
+    paddingHorizontal : 20,
     margin : 15,
   },
   info: {

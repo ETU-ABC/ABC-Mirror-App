@@ -4,7 +4,7 @@
 import React from 'react';
 import {Platform, StyleSheet, Text, Button, Image, View, FlatList, TextInput, AppRegistry} from 'react-native';
 
-const inputInstructions = 'Başlamak için, aşağıda bulunan bölmeye okul numaranızı giriniz:';
+const inputInstructions = 'Başlamak için aşağıdaki sayfalardan istediğiniz işlemi yapabilirsiniz.';
 const instructions = Platform.select({
   ios: 'Maalesef uygulamamamız Apple Store\'da bulunmamaktadır.',
   android:
@@ -14,41 +14,46 @@ const instructions = Platform.select({
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Home Page',
+    title: 'Ana Sayfa',
   };
   render() {
     return (
       <View style={styles.container} >
         <Text style={styles.welcome}>ABC Mirror'a Hoşgeldiniz!</Text>
         <Text style={styles.inputInstructions}>{inputInstructions}</Text>
-        <Button 
-          style = {styles.module_button} 
-          title="Dummy Screen"
-          color = "#b8c7e0"
-          onPress={() => {
-            this.props.navigation.navigate('Dummy');
-          }}
-        />
         <Button
-          style = {styles.module_button} 
-          title="SchoolNo"
-          color = "#b8c7e0"
+          style = {styles.schoolNo_button} 
+          title="Okul Numarası ve Modüller"
+          color = "#f4c700"
           onPress={() => {
             this.props.navigation.navigate('SchoolNo');
           }}
         />
+        <View
+          style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: 5,
+          }}  
+        />
        <Button
           style = {styles.module_button} 
-          title="Photo Page"
-          color = "#b8c7e0"
+          title="Fotoğrafınızı Ekleyin"
+          color = "#fc9300"
           onPress={() => {
             this.props.navigation.navigate('Photo');
           }}
        />
+       <View
+          style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: 5,
+          }}
+        />
        <Button
           style = {styles.module_button} 
-          title="Calendar Page"
-          color = "#b8c7e0"
+          title="Google Calendar"
+          color = "#f46146"
+          backgroundColor = 'black'
           onPress={() => {
           this.props.navigation.navigate('Calendar');
         }}
@@ -90,13 +95,20 @@ const styles = StyleSheet.create({
     backgroundColor : '#e1e1ea',
     margin: 15,
   },
-  button: {
+  schoolNo_button: {
     textAlign: 'center',
     width : '80%',
-    color: '#e1e1ea',
-    margin: 5,
+    color: '#333333',
+    color: '#841584',
+    margin: 15,
   },
-  module_button: {
+  photoPage_button: {
+    textAlign: 'center',
+    width : '80%',
+    color: '#841584',
+    margin: 15,
+  },
+  calendar_button: {
     textAlign: 'center',
     width : '80%',
     color: '#841584',
