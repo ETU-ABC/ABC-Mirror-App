@@ -15,8 +15,8 @@ export default class MailScreen extends React.Component {
   state = {
     email: "",
     password: "",
-    mailserver: "mail.etu.edu.tr",
-    port: "995"
+    mailserver: "imap.gmail.com",
+    port: "993"
   };
   
   email_submit = () => {
