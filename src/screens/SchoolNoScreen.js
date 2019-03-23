@@ -194,7 +194,7 @@ export default class SchoolNoScreen extends React.Component {
         />
         <Button
             style ={styles.button} 
-            onPress={this.show_module_by_input}
+            onPress={this.show_all}
             title="Bütün Modülleri Göster"
             color = "#5eff6a"
             accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"
@@ -207,7 +207,7 @@ export default class SchoolNoScreen extends React.Component {
         />
         <Button
             style ={styles.button} 
-            onPress={this.hide_module_by_input}
+            onPress={this.hide_all}
             title="Hiçbir Modülü Gösterme"
             color = "#f74a4a"
             accessibilityLabel="9 haneli okul numaranızı yazdıktan sonra gönderin"

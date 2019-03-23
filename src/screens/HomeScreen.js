@@ -58,6 +58,12 @@ export default class HomeScreen extends React.Component {
           this.props.navigation.navigate('Calendar');
         }}
        />
+       <View
+           style={{
+               borderBottomColor: 'black',
+               borderBottomWidth: 5,
+           }}
+       />
        <Button
            style = {styles.module_button}
            title = "Weather Page"
