@@ -14,7 +14,7 @@ export default class PhotoScreen extends React.Component {
       kind: '',
       data: []
     };
-    this.url = this.global+'/take_photo';
+    this.url = global.host+'/take_photo';
   }
 
   takePic = () => {
