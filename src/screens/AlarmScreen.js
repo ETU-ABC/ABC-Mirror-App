@@ -11,7 +11,7 @@ export default class AlarmScreen extends React.Component {
   static navigationOptions = {
     title: 'Alarm Page',
   };
-  url = 'http://10.5.43.212:8080/edit?module=MMM-AlarmClock';
+  url = global.host+'/edit?module=MMM-AlarmClock';
 
   state = {
     isDateTimePickerVisible: false,

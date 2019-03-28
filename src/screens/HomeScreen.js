@@ -2,7 +2,7 @@
 
 
 import React from 'react';
-import {Platform, StyleSheet, Text, Button, Image, View, FlatList, TextInput, AppRegistry} from 'react-native';
+import {Platform, StyleSheet, Text, Button, View} from 'react-native';
 
 const inputInstructions = 'Başlamak için aşağıdaki sayfalardan istediğiniz işlemi yapabilirsiniz.';
 const instructions = Platform.select({
@@ -16,6 +16,11 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Ana Sayfa',
   };
+  constructor(probs){
+    super(probs);
+    global.host = 'http://localhost:8080'; // This is default IP which can be changed in 'Ayarlar'.
+  }
+
   render() {
     return (
       <View style={styles.container} >
@@ -67,7 +72,7 @@ export default class HomeScreen extends React.Component {
        />
        <Button
            style = {styles.module_button}
-           title = "Weather Page"
+           title = "Hava durumu"
            color = "#b8c7e0"
            onPress={() => {
                this.props.navigation.navigate('Weather');
@@ -80,7 +85,19 @@ export default class HomeScreen extends React.Component {
           }}  
         />
        <Button
-          title="Go to Alarm"
+          title="Ayarlar"
+          onPress={() => {
+            this.props.navigation.navigate('Settings');
+          }}
+        />
+        <View
+          style={{
+            borderBottomColor: 'black',
+            borderBottomWidth: 5,
+          }}  
+        />
+       <Button
+          title="Alarmlar"
           onPress={() => {
             this.props.navigation.navigate('Alarm');
           }}
@@ -92,7 +109,7 @@ export default class HomeScreen extends React.Component {
           }}  
         />
         <Button
-          title="Go to Mail"
+          title="Mail"
           onPress={() => {
             this.props.navigation.navigate('Mail');
           }}

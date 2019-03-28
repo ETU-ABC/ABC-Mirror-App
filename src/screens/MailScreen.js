@@ -10,7 +10,7 @@ export default class MailScreen extends React.Component {
   static navigationOptions = {
     title: 'Mail Page',
   };
-  url = 'http://10.5.43.212:8080/edit?module=email';
+  url = global.host+'/edit?module=email';
 
   state = {
     email: "",

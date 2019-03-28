@@ -9,8 +9,7 @@ export default class CalendarScreen extends React.Component {
   constructor(probs){
     super(probs);
     this.state = {text : ''};
-    this.host = 'http://10.5.43.212:8080';
-    this.url =  this.host+'/edit?module=calendar';
+    this.url =  global.host+'/edit?module=calendar';
   }
 
   google_calendar = () => {

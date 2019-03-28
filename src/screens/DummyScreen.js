@@ -9,13 +9,11 @@ export default class DummyScreen extends React.Component {
   constructor(probs){
     super(probs);
     this.state = {text : ''};
-    this.host = 'http://10.5.43.212:8080';
-    this.url = 'http://10.5.43.212:8080/edit?module=module_5_ABC-EtuCourseTimetable';
-    this.json_url = 'http://10.5.43.212:8080/all_modules';
+    this.url = global.host+'/your_url';
   }
   render() {
     return (
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Text>Dummy Screen</Text>
         <Button
           title="Example: Go To Home Page"

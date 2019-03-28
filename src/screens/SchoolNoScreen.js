@@ -13,18 +13,18 @@ export default class SchoolNoScreen extends React.Component {
       kind: '',
       data: []
     };
-    this.host = 'http://10.5.43.212:8080'; 
-    this.course_timetable = this.host+'/edit?module=ABC-EtuCourseTimetable';
-    this.exam_timetable = this.host+'/edit?module=ABC-EtuExamTimeTable';
-    this.json_url = this.host+'/all_modules';
-    this.show_url = this.host+'/hide?action=SHOW&module=';
-    this.hide_url = this.host+'/hide?action=HIDE&module=';
-    this.show_all = this.host+'';
-    this.hide_all = this.host+'';
+    this.course_timetable = global.host+'/edit?module=ABC-EtuCourseTimetable';
+    this.exam_timetable = global.host+'/edit?module=ABC-EtuExamTimeTable';
+    this.json_url = global.host+'/all_modules';
+    this.show_url = global.host+'/hide?action=SHOW&module=';
+    this.hide_url = global.host+'/hide?action=HIDE&module=';
+    this.show_all = global.host+'';
+    this.hide_all = global.host+'';
   }
 
   postOgrenciNo = () => {
     this.tmp_url = this.course_timetable;
+    console.log(this.tmp_url);
     axios.post(this.tmp_url, {
       "content": {
         "ogrenciNo": this.state.text

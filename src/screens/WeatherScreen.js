@@ -10,8 +10,7 @@ export default class WeatherScreen extends React.Component {
   constructor(probs){
     super(probs);
     this.state = {text : ''};
-    this.host = 'http://10.5.43.212:8080';
-    this.url =  this.host + '/edit?module=currentweather';
+    this.url =  global.host + '/edit?module=currentweather';
   }
 
   sendRequest = () => {
