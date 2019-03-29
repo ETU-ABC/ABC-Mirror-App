@@ -13,13 +13,14 @@ export default class SchoolNoScreen extends React.Component {
       kind: '',
       data: []
     };
+
     this.course_timetable = global.host+'/edit?module=ABC-EtuCourseTimetable';
     this.exam_timetable = global.host+'/edit?module=ABC-EtuExamTimeTable';
     this.json_url = global.host+'/all_modules';
     this.show_url = global.host+'/hide?action=SHOW&module=';
     this.hide_url = global.host+'/hide?action=HIDE&module=';
-    this.show_all = global.host+'';
-    this.hide_all = global.host+'';
+    this.show_all = global.host+'/show_all';
+    this.hide_all = global.host+'/hide_all';
   }
 
   postOgrenciNo = () => {
@@ -49,7 +50,7 @@ export default class SchoolNoScreen extends React.Component {
     .catch(function (error) {
       console.log(error);
     });  
-  }
+  };
 
   getJSON = () => {
     this.tmp_url = this.json_url;
@@ -78,61 +79,55 @@ export default class SchoolNoScreen extends React.Component {
           }
         );
       });
-  }
+  };
 
   show_module(item) {
-    this.tmp_url = this.show_url+item.longname
+    this.tmp_url = this.show_url + item.longname;
     return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
         response.json()
       });;
-  } 
+  };
 
   hide_module(item) {
-    this.tmp_url = this.hide_url+item.longname
+    this.tmp_url = this.hide_url + item.longname;
     return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
         response.json()
     });
-  }
+  };
 
   hide_all_func = () => {
-    this.tmp_url = this.hide_all
-    return fetch(this.tmp_url)
+    return fetch(this.hide_all)
       .then(response => {
         console.log(response);
-        response.json()
     });
-  }
+  };
 
   show_all_func = () => {
-    this.tmp_url = this.show_all
-    return fetch(this.tmp_url)
+    return fetch(this.show_all)
       .then(response => {
         console.log(response);
-        response.json()
     });
-  }
+  };
 
   show_module_by_input = () => {
-    this.tmp_url = this.show_url+this.state.module
+    this.tmp_url = this.show_url + this.state.module;
     return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
-        response.json()
-    });;
-  }
+    });
+  };
 
   hide_module_by_input = () => {
-    this.tmp_url = this.hide_url+this.state.module
+    this.tmp_url = this.hide_url + this.state.module;
     return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
-        response.json()
-    });;
-  }
+    });
+  };
 
   render() {
     return (
