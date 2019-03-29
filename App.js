@@ -13,6 +13,7 @@ import PhotoScreen from './src/screens/PhotoScreen';
 import CalendarScreen from './src/screens/CalendarScreen';
 import WeatherScreen from './src/screens/WeatherScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import ModulePosScreen from "./src/screens/ModulePosScreen";
 
 const AppNavigator = createStackNavigator({
   Home: { 
@@ -48,6 +49,9 @@ const AppNavigator = createStackNavigator({
   Settings: {
     screen: SettingsScreen,
   },
+  ModulePos: {
+    screen: ModulePosScreen
+  }
 });
 
 const App = createAppContainer(AppNavigator);

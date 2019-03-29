@@ -115,6 +115,13 @@ export default class HomeScreen extends React.Component {
           }}
         />
        <Text style={styles.info}>{instructions}</Text>
+       <Button
+           title="Module Position"
+           onPress={() => {
+               this.props.navigation.navigate('ModulePos');
+           }}
+       />
+       <Text style={styles.info}>{instructions}</Text>
       </View>
     );
   }
