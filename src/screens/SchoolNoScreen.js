@@ -52,17 +52,6 @@ export default class SchoolNoScreen extends React.Component {
     });  
   };
 
-  getJSON = () => {
-    this.tmp_url = this.json_url;
-    return fetch(this.tmp_url)
-      .then(response => {
-        console.log(response);
-        response.json()
-      });;  
-  
-  }
-
-
   getJSON2 = () => {
     this.tmp_url = this.json_url;
     return fetch(this.tmp_url)
@@ -108,22 +97,6 @@ export default class SchoolNoScreen extends React.Component {
 
   show_all_func = () => {
     return fetch(this.show_all)
-      .then(response => {
-        console.log(response);
-    });
-  };
-
-  show_module_by_input = () => {
-    this.tmp_url = this.show_url + this.state.module;
-    return fetch(this.tmp_url)
-      .then(response => {
-        console.log(response);
-    });
-  };
-
-  hide_module_by_input = () => {
-    this.tmp_url = this.hide_url + this.state.module;
-    return fetch(this.tmp_url)
       .then(response => {
         console.log(response);
     });
