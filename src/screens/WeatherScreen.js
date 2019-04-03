@@ -60,7 +60,7 @@ export default class WeatherScreen extends React.Component {
                 query={{
                     // available options: https://developers.google.com/places/web-service/autocomplete
                     // !!! type in key !!!
-                    // key: '<super_secret_key>',
+                    key: 'AIzaSyAMQVfFw1FoAmPaKLd66_ERzhw4_q7C8Zw',
                     language: 'en', // language of the results
                     types: '(cities)' // default: 'geocode'
                 }}
