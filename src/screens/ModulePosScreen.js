@@ -28,6 +28,7 @@ export default class ModulePos extends React.Component {
         });
         self.setState({
             dataSource: items,
+            module: this.props.navigation.state.params.module
         });
     }
 
@@ -38,7 +39,7 @@ export default class ModulePos extends React.Component {
         axios.post(this.url, {
             "content": {
                 "position": position,
-                "module": "currentweather" // for now
+                "module": this.state.module // for now
             }
         })
         .then(function (response) {

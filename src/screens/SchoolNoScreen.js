@@ -155,6 +155,17 @@ export default class SchoolNoScreen extends React.Component {
                   color = "#c8d7f0"
                   accessibilityLabel="Gizle"
                 />
+                <Button
+                    style ={styles.show_module}
+                    onPress={() => {
+                        this.props.navigation.navigate('ModulePos', {
+                            module: item.longname,
+                        });
+                    }}
+                    title="Position"
+                    color = "#c8d7f0"
+                    accessibilityLabel="Position"
+                />
               </View>
             </View>
           )}
